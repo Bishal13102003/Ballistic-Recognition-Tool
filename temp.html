@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ballistic Recognition Tool</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato&display=swap" rel="stylesheet">
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Lato', sans-serif;
+        }
+
+        /* Body */
+        body {
+            background-color: #1E1E1E;
+            color: #F5F5F5;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(to bottom, #2F2F2F, #1E3A8A);
+            padding: 50px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        header h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.5rem;
+            color: #FFC107;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin: 10px 0 20px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #8B0000;
+            color: #F5F5F5;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #FFC107;
+            color: #2F2F2F;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: url('https://via.placeholder.com/1200x400?text=Bullet+Casing+Analysis') no-repeat center/cover;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .hero-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 60px 20px;
+            background: #1E3A8A;
+            text-align: center;
+        }
+
+        .features h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.8rem;
+            color: #FFC107;
+            margin-bottom: 40px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: #2F2F2F;
+            padding: 20px;
+            border: 1px solid #FFC107;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            font-size: 1rem;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 60px 20px;
+            background: #2F2F2F;
+            text-align: center;
+        }
+
+        .how-it-works h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.8rem;
+            color: #FFC107;
+            margin-bottom: 40px;
+        }
+
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .step {
+            background: #1E3A8A;
+            padding: 15px 25px;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            max-width: 300px;
+        }
+
+        /* Action Button Section */
+        .action-section {
+            padding: 40px 20px;
+            background: linear-gradient(45deg, #8B0000, #1E3A8A);
+            text-align: center;
+        }
+
+        .action-section h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: #FFC107;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .action-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: #FFC107;
+            color: #2F2F2F;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-button:hover {
+            background-color: #F5F5F5;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+        }
+
+        .action-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+        }
+
+        .action-button:hover::after {
+            width: 200%;
+            height: 200%;
+        }
+
+        /* Footer */
+        footer {
+            background: #1E1E1E;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer-links a {
+            color: #FFC107;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="top">
+        <div class="header-content">
+            <h1>Ballistic Recognition Tool</h1>
+            <p>Unveiling Truth Through Precision Forensics</p>
+            <a href="#features" class="cta-button">Explore the Technology</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Revolutionary Ballistic Analysis</h2>
+            <p>Empower law enforcement with cutting-edge recognition tools.</p>
+            <a href="#features" class="cta-button">Learn More</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <h2>Key Features</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>Precision Analysis</h3>
+                <p>Detect unique ballistic signatures with unmatched accuracy.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Advanced Imaging</h3>
+                <p>Visualize striations and markings in real-time.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Evidence Matching</h3>
+                <p>Link crime scenes through a robust ballistic database.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Trusted by Experts</h3>
+                <p>Built for forensic professionals and law enforcement.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <h2>From Crime Scene to Courtroom</h2>
+        <div class="steps">
+            <div class="step">1. Collect: Scan ballistic evidence.</div>
+            <div class="step">2. Analyze: AI-driven pattern recognition.</div>
+            <div class="step">3. Match: Cross-reference databases.</div>
+            <div class="step">4. Report: Generate forensic reports.</div>
+        </div>
+    </section>
+
+    <!-- Action Button Section -->
+    <section class="action-section">
+        <h2>Ready to Test It?</h2>
+        <a href="test.html" class="action-button">Start Testing Now</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>© 2025 Ballistic Recognition Tool</p>
+            <div class="footer-links">
+                <a href="#">About Us</a>
+                <a href="#">Contact</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+            <p>Contact: info@ballisticrecognition.com</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript to ensure page loads at top -->
+    <script>
+        window.onload = function() {
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>

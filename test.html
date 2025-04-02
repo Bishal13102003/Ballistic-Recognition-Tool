@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BallisticsID</title>
+  <link href="styles2.css" rel="stylesheet">
+  <script src="script1.js" defer></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <div class="logo-icon">
+          <img src="logo.png" alt="Logo">
+        </div>  
+        BallisticsID
+      </div>
+      <div class="user">
+        <div class="user-avatar">B</div>
+        Bishal
+      </div>
+    </header>
+
+    <nav class="sidebar">
+      <ul>
+        <li class="active">
+          <span class="sidebar-icon">📊</span>
+          Dashboard
+        </li>
+        <a href="case-management.html" class="sidebar-link" style="text-decoration: none; color: white;">
+          <li>
+            <span class="sidebar-icon">📁</span>
+            Case Management
+          </li>
+        </a>
+        <a href="databar.html" class="sidebar-link" style="text-decoration: none; color: white;">
+        <li>
+          <span class="sidebar-icon">🧩</span>
+          DataBar
+        </li>
+        </a>
+        <a href="database.html" class="sidebar-link" style="text-decoration: none; color: white;">
+          <li>
+            <span class="sidebar-icon">🗄️</span>
+            Database
+          </li>
+        </a>
+        <a href="reports.html" class="sidebar-link" style="text-decoration: none; color: white;">
+        <li>
+          <span class="sidebar-icon">📊</span>
+          Reports
+        </li>
+        </a>
+        <a href="settings.html" class="sidebar-link" style="text-decoration: none; color: white;">
+          <li>
+              <span class="sidebar-icon">⚙️</span>
+              Settings
+          </li>
+        </a>
+      </ul>
+    </nav>
+
+    <main class="main">
+      <h1 class="page-title">Dashboard</h1>
+
+      <div class="stats">
+        <div class="card card-cases">
+          <div class="card-header">
+            <div class="card-icon">📁</div>
+          </div>
+          <div class="card-title">Active Cases</div>
+          <div class="card-data">24</div>
+          <div class="card-trend">↑ 8% from last month</div>
+        </div>
+        
+        <div class="card card-analyses">
+          <div class="card-header">
+            <div class="card-icon">🔍</div>
+          </div>
+          <div class="card-title">Total Analyses</div>
+          <div class="card-data">143</div>
+          <div class="card-trend">↑ 12% from last month</div>
+        </div>
+        
+        <div class="card card-matches">
+          <div class="card-header">
+            <div class="card-icon">🎯</div>
+          </div>
+          <div class="card-title">Matches</div>
+          <div class="card-data">68</div>
+          <div class="card-trend">↑ 15% from last month</div>
+        </div>
+      </div>
+
+      <div class="upload">
+        <h3>Upload Evidence</h3>
+        <div class="upload-area">
+          <div class="upload-icon">📤</div>
+          <div class="upload-text">Drag and drop files here or click to browse</div>
+          <div class="upload-text" style="font-size: 13px; color: #64748b;">Supports JPG, PNG, MP4 (Max size: 50MB)</div>
+        </div>
+        <button class="btn">
+          <span>Upload Evidence</span>
+          <span>📤</span>
+        </button>
+      </div>
+      
+      <div class="results">
+        <div class="tabs">
+          <div class="tab active">Results</div>
+          <div class="tab">Case Info</div>
+          <div class="tab">Matches</div>
+          <div class="tab">Activity</div>
+        </div>
+
+        <div class="content">
+          <div class="preview">Preview will appear here.
+          </div>
+          
+          <div class="analysis-details">
+            <h3 class="section-title">
+              <span>📋</span>
+              Evidence Details
+            </h3>
+            
+            <div class="detail-group">
+              <div class="detail-label">Evidence Type</div>
+              <div class="detail-value">9mm Bullet Casing</div>
+            </div>
+            
+            <div class="detail-group">
+              <div class="detail-label">Collected Date</div>
+              <div class="detail-value">March 8, 2025</div>
+            </div>
+            
+            <div class="detail-group">
+              <div class="detail-label">Location</div>
+              <div class="detail-value">1234 Main St, Apartment 5B</div>
+            </div>
+            
+            <div class="detail-group">
+              <div class="detail-label">Case Number</div>
+              <div class="detail-value">BPD-2025-0384</div>
+            </div>
+            
+            <div class="detail-group">
+              <div class="detail-label">Analysis Status</div>
+              <div class="detail-value">
+                <span class="status-pill">Processing</span>
+              </div>
+            </div>
+
+            <h3 class="section-title" style="margin-top: 30px">
+              <span>🎯</span>
+              Potential Matches
+            </h3>
+            
+            <div class="match-list">
+              <div class="match-item">
+                <div class="match-percentage match-high">92%</div>
+                <div class="match-info">
+                  <div class="match-case">Case #BPD-2025-0112</div>
+                  <div class="match-details">
+                    <span class="match-detail">
+                      <span>📅</span> Jan 17, 2025
+                    </span>
+                    <span class="match-detail">
+                      <span>🔫</span> 9mm Casing
+                    </span>
+                    <span class="match-detail">
+                      <span>📍</span> Downtown
+                    </span>
+                  </div>
+                </div>
+                <button class="btn">View</button>
+              </div>
+              
+              <div class="match-item">
+                <div class="match-percentage match-medium">78%</div>
+                <div class="match-info">
+                  <div class="match-case">Case #BPD-2024-2914</div>
+                  <div class="match-details">
+                    <span class="match-detail">
+                      <span>📅</span> Dec 3, 2024
+                    </span>
+                    <span class="match-detail">
+                      <span>🔫</span> 9mm Casing
+                    </span>
+                    <span class="match-detail">
+                      <span>📍</span> Riverdale
+                    </span>
+                  </div>
+                </div>
+                <button class="btn">View</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
