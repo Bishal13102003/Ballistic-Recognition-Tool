@@ -5,85 +5,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings - Ballistic Recognition Tool</title>
     <style>
-        /* General Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
-        }
+        /* Modern Styles */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             height: 100vh;
-            background: #f8f9fa;
+            background: #f4f7f9;
             color: #333;
-        }
-        body.dark-theme {
-            background: #2c3e50;
-            color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
         }
 
-        /* Main Content */
+        body.dark-theme {
+            background: #282c34;
+            color: #d1d5db;
+        }
+
         .main-content {
             flex: 1;
-            padding: 30px;
+            padding: 40px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
-        }
-        .main-content h2 {
-            font-size: 24px;
-            color: #2c3e50;
-        }
-        body.dark-theme .main-content h2 {
-            color: #f8f9fa;
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        /* Settings Section */
+        .main-content h2 {
+            font-size: 28px;
+            color: #3b82f6;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e7ff;
+            padding-bottom: 10px;
+        }
+
+        body.dark-theme .main-content h2 {
+            color: #818cf8;
+            border-bottom: 2px solid #4a5568;
+        }
+
         .settings-container {
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
         }
+
         body.dark-theme .settings-container {
-            background: #34495e;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            background: #374151;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
+
         .settings-container h3 {
-            margin-bottom: 15px;
-            font-size: 18px;
-            color: #34495e;
+            margin-bottom: 20px;
+            font-size: 20px;
+            color: #4a5568;
+            border-bottom: 1px solid #edf2f7;
+            padding-bottom: 10px;
         }
+
         body.dark-theme .settings-container h3 {
-            color: #ecf0f1;
+            color: #cbd5e0;
+            border-bottom: 1px solid #4a5568;
         }
+
         .setting-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+            border-bottom: 1px solid #edf2f7;
         }
+
         body.dark-theme .setting-item {
-            border-bottom: 1px solid #4a6278;
+            border-bottom: 1px solid #4a5568;
         }
+
         .setting-item:last-child {
             border-bottom: none;
         }
 
-        /* Toggle Switch */
         .toggle-switch {
             position: relative;
-            width: 40px;
-            height: 20px;
+            display: inline-block;
+            width: 50px;
+            height: 28px;
         }
+
         .toggle-switch input {
             opacity: 0;
             width: 0;
             height: 0;
         }
+
         .slider {
             position: absolute;
             cursor: pointer;
@@ -91,47 +106,53 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: #ccc;
-            border-radius: 20px;
-            transition: 0.3s;
+            background-color: #ccc;
+            border-radius: 34px;
+            transition: .4s;
         }
+
         .slider:before {
             position: absolute;
             content: "";
-            height: 14px;
-            width: 14px;
-            left: 3px;
-            bottom: 3px;
-            background: white;
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
             border-radius: 50%;
-            transition: 0.3s;
-        }
-        input:checked + .slider {
-            background: #2980b9;
-        }
-        input:checked + .slider:before {
-            transform: translateX(20px);
+            transition: .4s;
         }
 
-        /* Button */
+        input:checked + .slider {
+            background-color: #3b82f6;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(22px);
+        }
+
         .btn {
-            background: #e74c3c;
+            background-color: #e53e3e;
             color: white;
             border: none;
-            padding: 10px 15px;
-            margin-top: 15px;
+            padding: 12px 20px;
+            margin-top: 25px;
             cursor: pointer;
-            border-radius: 5px;
-            transition: background 0.3s ease-in-out;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+            font-size: 16px;
         }
+
         .btn:hover {
-            background: #c0392b;
+            background-color: #c53030;
         }
+
         body.dark-theme .btn {
-            background: #c0392b;
+            background-color: #c53030;
         }
+
         body.dark-theme .btn:hover {
-            background: #922b21;
+            background-color: #a72929;
         }
     </style>
 </head>
@@ -170,7 +191,7 @@
     </main>
 
     <script>
-        // Get all toggle elements
+        // ... (JavaScript code remains the same) ...
         const themeToggle = document.getElementById('themeToggle');
         const securityToggle = document.getElementById('securityToggle');
         const autoSaveToggle = document.getElementById('autoSaveToggle');
@@ -249,6 +270,7 @@
         
         // Add event listener for reset button
         resetButton.addEventListener('click', resetSettings);
+
     </script>
 </body>
 </html>
