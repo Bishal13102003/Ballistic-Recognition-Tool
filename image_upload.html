@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Matcher</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="image_upload.css">
+</head>
+<body>
+  <div class="upload-container">
+    <h1>Image Matching System</h1>
+    
+    <div class="upload-area" id="uploadArea">
+      <i class="fas fa-cloud-upload-alt upload-icon"></i>
+      <p class="file-label">Drag & drop your image or click to browse</p>
+      <input type="file" class="file-input" id="fileInput" accept="image/*">
+      <p class="file-name" id="fileName">No file chosen</p>
+    </div>
+    
+    <img src="" id="thumbnail" class="thumbnail" alt="Image preview">
+    
+    <button class="upload-btn" id="uploadBtn">
+      <i class="fas fa-search"></i> Upload and Compare
+    </button>
+    
+    <div class="progress-bar" id="progressBar">
+      <div class="progress" id="progress"></div>
+    </div>
+    
+    <div id="message"></div>
+  </div>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const fileInput = document.getElementById('fileInput');
+      const fileName = document.getElementById('fileName');
+      const uploadBtn = document.getElementById('uploadBtn');
+      const message = document.getElementById('message');
+      const progress = document.getElementById('progress');
+      const thumbnail = document.getElementById('thumbnail');
+      const uploadArea = document.getElementById('uploadArea');
+      
+
+      ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        uploadArea.addEventListener(eventName, preventDefaults, false);
+      });
+      
+      function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      
+      ['dragenter', 'dragover'].forEach(eventName => {
+        uploadArea.addEventListener(eventName, () => {
+          uploadArea.classList.add('highlight');
+        }, false);
+      });
+      
+      ['dragleave', 'drop'].forEach(eventName => {
+        uploadArea.addEventListener(eventName, () => {
+          uploadArea.classList.remove('highlight');
+        }, false);
+      });
+      
+      uploadArea.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        fileInput.files = dt.files;
+        handleFiles(fileInput.files);
+      }, false);
+      
+      fileInput.addEventListener('change', () => {
+        handleFiles(fileInput.files);
+      });
+      
+      function handleFiles(files) {
+        if (files.length > 0) {
+          const file = files[0];
+          fileName.textContent = file.name;
+          
+          
+          if (file.type.match('image.*')) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              thumbnail.src = e.target.result;
+              thumbnail.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+          }
+        }
+      }
+      
+      uploadBtn.addEventListener('click', () => {
+        if (fileInput.files.length === 0) {
+          message.className = 'message error';
+          message.textContent = 'Please select an image first';
+          return;
+        }
+        
+        
+        const formData = new FormData();
+        formData.append('image', fileInput.files[0]);
+        
+        
+        message.className = 'message';
+        message.textContent = 'Uploading...';
+        progress.style.width = '0%';
+        
+        
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'image_upload.php', true);
+        
+        
+        xhr.upload.onprogress = (e) => {
+          if (e.lengthComputable) {
+            const percentComplete = (e.loaded / e.total) * 100;
+            progress.style.width = percentComplete + '%';
+          }
+        };
+        
+        
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+            try {
+              const response = JSON.parse(xhr.responseText);
+              message.className = response.success ? 'message success' : 'message error';
+              message.textContent = response.message;
+            } catch (e) {
+              message.className = 'message error';
+              message.textContent = 'Error processing server response: ' + xhr.responseText;
+            }
+          } else {
+            message.className = 'message error';
+            message.textContent = 'Upload failed. Server responded with status: ' + xhr.status;
+          }
+        };
+        
+        
+        xhr.onerror = function() {
+          message.className = 'message error';
+          message.textContent = 'Network error occurred during upload';
+        };
+        
+        
+        xhr.send(formData);
+      });
+    });
+  </script>
+</body>
+</html>

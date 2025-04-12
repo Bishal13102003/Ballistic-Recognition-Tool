@@ -1,0 +1,39 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ballistic DataBar</title>
+  <link rel="stylesheet" href="databar.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar Form -->
+    <div class="sidebar">
+      <h2>Ballistic Data Entry</h2>
+      <form id="ballisticForm">
+        <label for="bullet_type">Bullet Type:</label>
+        <input type="text" id="bullet_type" name="bullet_type" required />
+
+        <label for="caliber">Caliber:</label>
+        <input type="text" id="caliber" name="caliber" required />
+
+        <label for="velocity">Velocity (m/s):</label>
+        <input type="number" id="velocity" name="velocity" required />
+
+        <button type="submit">Submit</button>
+        <p id="statusMsg"></p>
+      </form>
+    </div>
+
+    <!-- Right Image Section -->
+    <div class="image-panel">
+      <!-- You can use a relevant ballistic image here -->
+      <div class="overlay-text">Precision Meets Data</div>
+    </div>
+  </div>
+
+  <script src="databar.js"></script>
+</body>
+</html>

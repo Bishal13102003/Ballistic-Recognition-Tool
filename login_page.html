@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ballistics Recognition Tool - Secure Login</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Rajdhani', 'Consolas', monospace;
+    }
+    
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #0a0e14;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+    }
+    
+    .grid {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(0, 162, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 162, 255, 0.05) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index: -1;
+    }
+    
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, rgba(10, 14, 20, 0.3) 0%, rgba(10, 14, 20, 0.9) 70%);
+      z-index: -1;
+    }
+    
+    .scan-effect {
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, 
+        transparent, 
+        rgba(0, 162, 255, 0.01), 
+        rgba(0, 162, 255, 0.05), 
+        rgba(0, 162, 255, 0.01), 
+        transparent);
+      animation: scan 8s linear infinite;
+      z-index: -1;
+    }
+    
+    @keyframes scan {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+    
+    .hologram {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: url('/api/placeholder/600/600') center/contain no-repeat;
+      opacity: 0.1;
+      filter: hue-rotate(180deg) brightness(1.5);
+      animation: pulse 4s infinite alternate;
+      z-index: -1;
+    }
+    
+    @keyframes pulse {
+      0% { opacity: 0.05; }
+      100% { opacity: 0.15; }
+    }
+    
+    .login-container {
+      width: 420px;
+      padding: 40px;
+      background: rgba(15, 20, 30, 0.8);
+      border: 1px solid rgba(0, 162, 255, 0.3);
+      border-radius: 4px;
+      position: relative;
+      z-index: 1;
+      backdrop-filter: blur(5px);
+      box-shadow:
+        0 0 20px rgba(0, 162, 255, 0.1),
+        0 0 40px rgba(0, 162, 255, 0.05);
+    }
+    
+    .login-container::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
+      background: linear-gradient(45deg, 
+        transparent, 
+        rgba(0, 162, 255, 0.3), 
+        transparent, 
+        rgba(255, 0, 60, 0.3), 
+        transparent);
+      z-index: -1;
+      border-radius: 5px;
+      animation: borderGlow 5s linear infinite;
+    }
+    
+    @keyframes borderGlow {
+      0% { background-position: 0 0; }
+      100% { background-position: 400% 0; }
+    }
+    
+    .header {
+      margin-bottom: 40px;
+      text-align: center;
+      position: relative;
+    }
+    
+    .logo {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 20px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .logo-outer {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 2px solid rgba(0, 162, 255, 0.5);
+      border-radius: 50%;
+      animation: rotate 10s linear infinite;
+    }
+    
+    .logo-inner {
+      position: absolute;
+      width: 70%;
+      height: 70%;
+      border: 2px solid rgba(255, 0, 60, 0.5);
+      border-radius: 50%;
+      animation: rotate 7s linear infinite reverse;
+    }
+    
+    .logo-center {
+      width: 50%;
+      height: 50%;
+      background: url('/api/placeholder/50/50') center/contain no-repeat;
+      opacity: 0.9;
+    }
+    
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .title {
+      color: #fff;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+    
+    .subtitle {
+      color: rgba(0, 162, 255, 0.8);
+      font-size: 14px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    
+    .input-group {
+      position: relative;
+      margin-bottom: 30px;
+    }
+    
+    .input-group input {
+      width: 100%;
+      padding: 15px 15px 15px 45px;
+      background: rgba(10, 14, 20, 0.8);
+      border: 1px solid rgba(0, 162, 255, 0.3);
+      border-radius: 3px;
+      color: #fff;
+      font-size: 16px;
+      letter-spacing: 1px;
+      transition: 0.3s;
+      outline: none;
+    }
+    
+    .input-group input:focus {
+      border-color: rgba(0, 162, 255, 0.8);
+      box-shadow: 0 0 15px rgba(0, 162, 255, 0.2);
+    }
+    
+    .input-icon {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      transform: translateY(-50%);
+      color: rgba(0, 162, 255, 0.8);
+      font-size: 16px;
+    }
+    
+    .fingerprint-icon {
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      transform: translateY(-50%);
+      width: 25px;
+      height: 25px;
+      background: url('/api/placeholder/25/25') center/contain no-repeat;
+      filter: hue-rotate(180deg) brightness(2);
+      opacity: 0.6;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    
+    .fingerprint-icon:hover {
+      opacity: 1;
+    }
+    
+    .login-btn {
+      width: 100%;
+      padding: 15px;
+      background: rgba(0, 162, 255, 0.1);
+      border: 1px solid rgba(0, 162, 255, 0.3);
+      border-radius: 3px;
+      color: rgba(0, 162, 255, 0.8);
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .login-btn::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
+      background: linear-gradient(45deg, 
+        rgba(0, 162, 255, 0.5), 
+        rgba(255, 0, 60, 0.5), 
+        rgba(0, 162, 255, 0.5));
+      z-index: -1;
+      border-radius: 4px;
+      animation: borderGlow 5s linear infinite;
+      opacity: 0;
+      transition: 0.3s;
+    }
+    
+    .login-btn:hover {
+      color: #fff;
+      background: rgba(0, 162, 255, 0.2);
+      box-shadow: 0 0 20px rgba(0, 162, 255, 0.3);
+    }
+    
+    .login-btn:hover::before {
+      opacity: 1;
+    }
+    
+    .security-notice {
+      margin-top: 25px;
+      display: flex;
+      align-items: center;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 12px;
+    }
+    
+    .security-icon {
+      margin-right: 10px;
+      color: rgba(255, 0, 60, 0.8);
+      font-size: 14px;
+    }
+    
+    .secure-footer {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.3);
+    }
+    
+    .secure-footer span {
+      margin: 0 10px;
+      position: relative;
+    }
+    
+    .secure-footer span::after {
+      content: '•';
+      position: absolute;
+      right: -10px;
+    }
+    
+    .secure-footer span:last-child::after {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="background">
+    <div class="grid"></div>
+    <div class="overlay"></div>
+    <div class="scan-effect"></div>
+    <div class="hologram"></div>
+  </div>
+  <div class="login-container">
+    <div class="header">
+      <div class="logo">
+        <div class="logo-outer"></div>
+        <div class="logo-inner"></div>
+        <div class="logo-center"></div>
+      </div>
+      <div class="title">Secure Login</div>
+      <div class="subtitle">Ballistics Recognition Tool</div>
+    </div>
+    <form id="loginForm">
+      <div class="input-group">
+        <span class="input-icon">👤</span>
+        <input type="text" id="username" name="username" placeholder="Username" required>
+      </div>
+      <div class="input-group">
+        <span class="input-icon">🔒</span>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+        <div class="fingerprint-icon" title="Fingerprint Scan (Not Implemented)"></div>
+      </div>
+      <button type="submit" class="login-btn">Login</button>
+    </form>
+    <div class="security-notice">
+      <p style="color: #888; font-size: 12px; text-align: center; margin-top: 20px;">Unauthorized access is prohibited.</p>
+    </div>
+  </div>
+
+  <!-- JavaScript (Added below without changing HTML structure) -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const loginForm = document.getElementById("loginForm");
+
+      loginForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        // Example check (replace this with real authentication)
+        if (username === "admin" && password === "admin123") {
+          // alert("Login successful!");
+          window.location.href = "test.html";
+          // Redirect or do something here
+        } else {
+          alert("Invalid username or password. Please try again.");
+        }
+      });
+    });
+  </script>
+</body>
+</html>

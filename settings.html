@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Ballistic Recognition Tool</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            height: 100vh;
+            background: #f4f7f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.dark-theme {
+            background: #282c34;
+            color: #d1d5db;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .main-content h2 {
+            font-size: 28px;
+            color: #3b82f6;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e7ff;
+            padding-bottom: 10px;
+        }
+
+        body.dark-theme .main-content h2 {
+            color: #818cf8;
+            border-bottom: 2px solid #4a5568;
+        }
+
+        .settings-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        body.dark-theme .settings-container {
+            background: #374151;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .settings-container h3 {
+            margin-bottom: 20px;
+            font-size: 20px;
+            color: #4a5568;
+            border-bottom: 1px solid #edf2f7;
+            padding-bottom: 10px;
+        }
+
+        body.dark-theme .settings-container h3 {
+            color: #cbd5e0;
+            border-bottom: 1px solid #4a5568;
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #edf2f7;
+        }
+
+        body.dark-theme .setting-item {
+            border-bottom: 1px solid #4a5568;
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 28px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            border-radius: 34px;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            border-radius: 50%;
+            transition: .4s;
+        }
+
+        input:checked + .slider {
+            background-color: #3b82f6;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(22px);
+        }
+
+        .btn {
+            background-color: #e53e3e;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin-top: 25px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: #c53030;
+        }
+
+        body.dark-theme .btn {
+            background-color: #c53030;
+        }
+
+        body.dark-theme .btn:hover {
+            background-color: #a72929;
+        }
+    </style>
+</head>
+<body>
+    <main class="main-content">
+        <h2>Settings</h2>
+        <div class="settings-container">
+            <h3>Preferences</h3>
+
+            <div class="setting-item">
+                <span>Dark Mode</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="themeToggle" class="setting-toggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="setting-item">
+                <span>Enable Security Alerts</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="securityToggle" class="setting-toggle" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="setting-item">
+                <span>Data Auto-Save</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="autoSaveToggle" class="setting-toggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <button class="btn" id="resetButton">Reset Settings</button>
+        </div>
+    </main>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const securityToggle = document.getElementById('securityToggle');
+        const autoSaveToggle = document.getElementById('autoSaveToggle');
+        const resetButton = document.getElementById('resetButton');
+        const allToggles = document.querySelectorAll('.setting-toggle');
+        
+        
+        function loadSettings() {
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-theme');
+                themeToggle.checked = true;
+            }
+            
+            if (localStorage.getItem('securityAlerts') === 'disabled') {
+                securityToggle.checked = false;
+            } else {
+                securityToggle.checked = true;
+                localStorage.setItem('securityAlerts', 'enabled');
+            }
+            
+            if (localStorage.getItem('autoSave') === 'enabled') {
+                autoSaveToggle.checked = true;
+            }
+        }
+        
+        
+        function saveSettings() {
+            localStorage.setItem('darkMode', themeToggle.checked ? 'enabled' : 'disabled');
+            localStorage.setItem('securityAlerts', securityToggle.checked ? 'enabled' : 'disabled');
+            localStorage.setItem('autoSave', autoSaveToggle.checked ? 'enabled' : 'disabled');
+        }
+        
+        
+        function resetSettings() {
+            if (confirm('Are you sure you want to reset all settings to default?')) {
+                themeToggle.checked = false;
+                securityToggle.checked = true;
+                autoSaveToggle.checked = false;
+                
+                document.body.classList.remove('dark-theme');
+                
+                saveSettings();
+                
+                alert('Settings have been reset to default.');
+            }
+        }
+        
+        loadSettings();
+        
+        allToggles.forEach(toggle => {
+            toggle.addEventListener('change', function() {
+                saveSettings();
+                
+                if (this.id === 'themeToggle') {
+                    if (this.checked) {
+                        document.body.classList.add('dark-theme');
+                    } else {
+                        document.body.classList.remove('dark-theme');
+                    }
+                }
+            });
+        });
+        
+        resetButton.addEventListener('click', resetSettings);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  body, html {
+    height: 100%;
+    width: 100%;
+  }
+  
+  .container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .sidebar {
+    width: 35%;
+    background: #1e1e2f;
+    color: white;
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .sidebar h2 {
+    margin-bottom: 30px;
+    font-size: 28px;
+    color: #f0f0f0;
+  }
+  
+  .sidebar form label {
+    margin-top: 15px;
+    font-size: 16px;
+  }
+  
+  .sidebar form input {
+    padding: 10px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+  }
+  
+  .sidebar form button {
+    margin-top: 25px;
+    padding: 12px;
+    background-color: #ff6b35;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+  }
+  
+  .sidebar form button:hover {
+    background-color: #e65a24;
+  }
+  
+  #statusMsg {
+    margin-top: 15px;
+    color: lightgreen;
+    font-weight: bold;
+  }
+  
+  .image-panel {
+    flex: 1;
+    background-image: url('databar_img.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+  
+  .overlay-text {
+    position: absolute;
+    bottom: 40px;
+    right: 50px;
+    font-size: 32px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 15px 25px;
+    border-radius: 10px;
+    font-weight: bold;
+  }
+  
