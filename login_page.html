@@ -346,44 +346,21 @@
       <div class="title">Secure Login</div>
       <div class="subtitle">Ballistics Recognition Tool</div>
     </div>
-    <form id="loginForm">
-      <div class="input-group">
-        <span class="input-icon">👤</span>
-        <input type="text" id="username" name="username" placeholder="Username" required>
-      </div>
-      <div class="input-group">
-        <span class="input-icon">🔒</span>
-        <input type="password" id="password" name="password" placeholder="Password" required>
-        <div class="fingerprint-icon" title="Fingerprint Scan (Not Implemented)"></div>
-      </div>
-      <button type="submit" class="login-btn">Login</button>
-    </form>
+    <form action="login.php" method="POST" class="login-form">
+        <div class="input-group">
+          <span class="input-icon">&#x1F464;</span>
+          <input type="text" name="username" placeholder="Username" required>
+        </div>
+        <div class="input-group">
+          <span class="input-icon">&#x1F512;</span>
+          <input type="password" name="password" placeholder="Password" required>
+          <div class="fingerprint-icon"></div>
+        </div>
+        <button type="submit" class="login-btn">Login</button>
+    </form>      
     <div class="security-notice">
       <p style="color: #888; font-size: 12px; text-align: center; margin-top: 20px;">Unauthorized access is prohibited.</p>
     </div>
   </div>
-
-  <!-- JavaScript (Added below without changing HTML structure) -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const loginForm = document.getElementById("loginForm");
-
-      loginForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        const username = document.getElementById("username").value.trim();
-        const password = document.getElementById("password").value.trim();
-
-        // Example check (replace this with real authentication)
-        if (username === "admin" && password === "admin123") {
-          // alert("Login successful!");
-          window.location.href = "test.html";
-          // Redirect or do something here
-        } else {
-          alert("Invalid username or password. Please try again.");
-        }
-      });
-    });
-  </script>
 </body>
 </html>

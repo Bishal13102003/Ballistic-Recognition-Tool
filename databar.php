@@ -4,13 +4,11 @@ $username = "root";
 $password = "";
 $database = "ballistic_tool";
 
-// Connect to database
 $conn = new mysqli($host, $username, $password, $database);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-// Validate and insert
 if (isset($_POST['bullet_type']) && isset($_POST['caliber']) && isset($_POST['velocity'])) {
   $bullet_type = $_POST['bullet_type'];
   $caliber = $_POST['caliber'];

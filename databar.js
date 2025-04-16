@@ -1,5 +1,5 @@
 document.getElementById('ballisticForm').addEventListener('submit', function(e) {
-    e.preventDefault(); // Prevent page reload
+    e.preventDefault();
   
     const bullet_type = document.getElementById('bullet_type').value;
     const caliber = document.getElementById('caliber').value;
