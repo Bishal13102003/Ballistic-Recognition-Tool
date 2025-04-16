@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Matching System Workflow UI</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Mermaid.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .diagram-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto">
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800">Image Matching System Workflow</h1>
+            <p class="text-lg text-gray-600 mt-2">
+                Interactive workflow diagram for the Image Matching System, detailing client-side and server-side interactions.
+            </p>
+        </header>
+
+        <!-- Diagram Container -->
+        <div class="diagram-container">
+            <div id="workflowDiagram" class="mermaid">
+                graph TD
+                    A[User Opens Webpage] --> B[Drag & Drop or Click to Select Image]
+                    
+                    subgraph Client-Side
+                        B --> C[JavaScript: Handle File Selection]
+                        C --> D[Display Image Preview]
+                        C --> E[Update File Name Display]
+                        D --> F[User Clicks 'Upload and Compare' Button]
+                        F --> G{Validate File Selected?}
+                        G -->|No| H[Show Error: 'Please select an image']
+                        G -->|Yes| I[Create FormData with Image]
+                        I --> J[Send POST Request to PHP Server]
+                        J --> K[Show Uploading Message]
+                        J --> L[Update Progress Bar]
+                    end
+                    
+                    subgraph Server-Side
+                        J --> M[PHP: Receive Image File]
+                        M --> N{Database Connection Successful?}
+                        N -->|No| O[Return Error: Connection Failed]
+                        N -->|Yes| P{Check if 'images' Table Exists?}
+                        P -->|No| Q[Create 'images' Table]
+                        P -->|Yes| R{File Uploaded Successfully?}
+                        Q --> R
+                        R -->|No| S[Return Error: File Upload Failed]
+                        R -->|Yes| T{Validate File Type and Size?}
+                        T -->|No| U[Return Error: Invalid File Type or Size]
+                        T -->|Yes| V[Generate MD5 Hash of Uploaded Image]
+                        V --> W[Compare Hash with Database Images]
+                        W --> X{Match Found?}
+                        X -->|Yes| Y[Return Success: Image Matched]
+                        X -->|No| Z[Insert Image into Database]
+                        Z --> AA{Insert Successful?}
+                        AA -->|Yes| AB[Return Success: No Match, Image Uploaded]
+                        AA -->|No| AC[Return Error: Database Upload Failed]
+                    end
+                    
+                    subgraph Client-Side
+                        O --> AD[Display Error Message]
+                        S --> AD
+                        U --> AD
+                        Y --> AE[Display Success Message]
+                        AB --> AE
+                        AC --> AD
+                    end
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center mt-8">
+            <p class="text-gray-500">Powered by Mermaid.js and Tailwind CSS</p>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                curve: 'basis'
+            }
+        });
+
+        // Render the diagram
+        document.addEventListener('DOMContentLoaded', () => {
+            mermaid.init(undefined, '#workflowDiagram');
+        });
+    </script>
+</body>
+</html>
